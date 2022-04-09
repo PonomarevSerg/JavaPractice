@@ -2,7 +2,7 @@ package com.manual2;
 
 public class Main {
     public static void main(String[]args) {
-
+        task6();
         // Задание №1: Задать целочисленный массив, состоящий из элементов 0 и 1.
         // Например: [ 1, 1, 0, 0, 1, 0, 1, 1, 0, 0 ]. С помощью цикла и условия заменить 0 на 1, 1 на 0;
         System.out.println("=============");
@@ -45,32 +45,67 @@ public class Main {
         // (можно только одну из диагоналей, если обе сложно).
         // Определить элементы одной из диагоналей можно по следующему принципу:
         // индексы таких элементов равны, то есть [0][0], [1][1], [2][2], …, [n][n];
+        task4();
+        // Задание №5 Задать одномерный массив и найти в нем минимальный и максимальный элементы;
+    }
+
+    private static void task4() {
         System.out.println("=============");
         System.out.println("Задание №4: ");
         int[][] diagonalsArray = new int[4][4];
-        for (int i = 0, x = 3; i < diagonalsArray.length; i++, x--) {
-            for (int j = 0; j < diagonalsArray.length; j++) {
-                if (i == j) {
-                    diagonalsArray[i][j] = 1;
-                } else if (x >= 0) {
-                    diagonalsArray[i][x] = 1;
-                }
-                System.out.println(diagonalsArray[i][j]);
-            }
+
+        for (int i = 0; i < diagonalsArray.length; i++) {
+            diagonalsArray[i][i] = 1;
+            diagonalsArray[diagonalsArray.length - i - 1][i] = 1;
         }
-        // Задание №5 Задать одномерный массив и найти в нем минимальный и максимальный элементы;
+    }
+
+    private static void task5() {
         System.out.println("=============");
         System.out.println("Задание №5: ");
-        int[] minMaxArray = {5, 9, 1, 4, 15, 2};
-        for (int i = 0; i < minMaxArray.length; i++) {
-            int max = minMaxArray[0];
-            int min = minMaxArray[0];
+        int[] minMaxArray = {5, 9, 1, -5, 4, 15, 2};
+
+        int max = minMaxArray[0];
+        int min = minMaxArray[0];
+
+        for (int i = 1; i < minMaxArray.length; i++) {
             if (minMaxArray[i] > max) {
-                minMaxArray[i] = max;
-            } else if (minMaxArray[i] < min)
-                minMaxArray[i] = min;
-            System.out.println("Maximum = " + max);
-            System.out.println("Minimum = " + min);
+               max = minMaxArray[i];
+            } else if (minMaxArray[i] < min) {
+                min = minMaxArray[i];
+            }
         }
+        System.out.println("Maximum = " + max);
+        System.out.println("Minimum = " + min);
+    }
+
+    /**
+     * Написать метод, в который передается не пустой одномерный целочисленный массив, метод должен
+     * вернуть true, если в массиве есть место, в котором сумма левой и правой части массива равны.
+     * Примеры: checkBalance([2, 2, 2, 1, 2, 2, || 10, 1]) → true, checkBalance([1, 1, 1, || 2, 1]) →
+     * true, граница показана символами ||, эти символы в массив не входят.
+     */
+    private static boolean task6() {
+        int[] arr = {1, 1, 1, 2, 1};
+
+        for (int i = 0; i < arr.length; i++) {
+            int leftSum = 0;
+            int rightSum = 0;
+            //left side
+            for (int j = 0; j <= i; j++) {
+                leftSum += arr[j];
+            }
+
+            //right side
+            for (int j = i + 1; j < arr.length; j++) {
+                rightSum += arr[j];
+            }
+
+            if (leftSum == rightSum) {
+                return true;
+            }
+
+        }
+        return false;
     }
 }
