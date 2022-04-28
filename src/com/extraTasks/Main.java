@@ -1,13 +1,15 @@
 package com.extraTasks;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         // shiftArr();
-        // guess();
+        guess();
         // randomTask();
+        // guess2();
     }
     //Написать метод, которому на вход подается одномерный массив и число n (может быть положительным, или отрицательным)
     //при этом метод должен сместить все элементы массива на n позиций. Элементы смещаются циклично.
@@ -49,24 +51,52 @@ public class Main {
                 "carrot", "cherry", "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom",
                 "nut", "olive", "pea", "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"};
         Random rand = new Random();
-        int random = rand.nextInt(words.length);
+        int random = rand.nextInt(words.length - 1);
+        String guessWord = words[random];
         Scanner scanner = new Scanner(System.in);
-
         do {
-            String answer = words[random];
-            String guess = scanner.nextLine();
-            for (int i = 0; i < 15 - answer.length(); i++) {
-                for (int j = 0; j < answer.length(); j++) {
-                    if (guess.charAt(i) == answer.charAt(j)) {
-                        System.out.print(answer.charAt(j));
-                    } else {
-                        System.out.print("#");
-                    }
+            System.out.println("Введите слово:");
+            String userWord = scanner.nextLine();
+            if (guessWord.equals(userWord)) {
+                System.out.println("Word: " + guessWord);
+                break;
+            }
+
+            for (int i = 0; i < userWord.length() || i < guessWord.length(); i++) {
+                if (guessWord.charAt(i) == userWord.charAt(i)) {
+                    System.out.print(guessWord.charAt(i));
+                } else {
+                    System.out.print("#");
                 }
+            }
+
+            for (int j = 15 - guessWord.length(); j > 0; j--) {
                 System.out.print("#");
             }
+            System.out.println(" ");
         }
         while (true);
+    }
+
+    public static void guess2() {
+        String[] words = {"apple", "orange", "lemon", "banana", "apricot", "avocado", "broccoli",
+                "carrot", "cherry", "garlic", "grape", "melon", "leak", "kiwi", "mango", "mushroom",
+                "nut", "olive", "pea", "peanut", "pear", "pepper", "pineapple", "pumpkin", "potato"};
+        Random rand = new Random();
+        int random = rand.nextInt(words.length - 1);
+        String guessWord = words[random];
+        Scanner scanner = new Scanner(System.in);
+        String userWord = scanner.nextLine();
+
+        char[] result = new char[15];
+        Arrays.fill(result, '#');
+
+        for (int i = 0; i < guessWord.length() || i < userWord.length(); i++) {
+            if (guessWord.charAt(i) == userWord.charAt(i)) {
+                result[i] = guessWord.charAt(i);
+            }
+        }
+        System.out.print(result);
     }
 
     public static void randomTask() {
@@ -114,11 +144,3 @@ public class Main {
         while (true);
     }
 }
-/*
-    char a = answer.charAt(0), b = answer.charAt(1), c = answer.charAt(2), d = answer.charAt(3),
-            e = answer.charAt(4), f = answer.charAt(5), g = answer.charAt(6), h = answer.charAt(7),
-            k = answer.charAt(8);
-    char a1 = guess.charAt(0), b1 = guess.charAt(1), c1 = guess.charAt(2), d1 = guess.charAt(3),
-            e1 = guess.charAt(4), f1 = guess.charAt(5), g1 = guess.charAt(6), h1 = guess.charAt(7),
-            k1 = guess.charAt(8);
- */
