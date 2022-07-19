@@ -22,8 +22,14 @@ public class Box <T extends Fruit> {
         return sumWeight;
     }
 
-    public boolean compare (Box box) {
-        return this.getWeight() == box.getWeight();
+    public boolean compare (Box<?> box) {
+        return Math.abs(this.getWeight() - box.getWeight()) < 0.0001;
+        //this.getWeight() == box.getWeight();
+    }
+
+    public void dropFruits (Box <T> box) {
+        box.boxList.addAll(this.boxList);
+        this.boxList.clear();
     }
 
     public List<T> getBoxList() {
